@@ -59,7 +59,6 @@ class DateTimePicker extends Component {
                     );
     }
     
-    
     render(){
         return(
                <View>
@@ -92,6 +91,7 @@ class DateTimePicker extends Component {
                );
     }
 }
+
 const styles=StyleSheet.create({
                                    row:{
                                     flexDirection: 'row',

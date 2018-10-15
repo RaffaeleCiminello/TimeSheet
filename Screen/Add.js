@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, Dimensions, TouchableOpacity} from 'react-native';
-import {Picker} from 'native-base';
+import {Picker, Item, Icon, Input} from 'native-base';
 import Foter from '../Component/Footer.js';
 import DateTimePicker from '../Component/DateTimePicker.js';
 
@@ -198,7 +198,10 @@ export default class Add extends Component {
                            placeHolder='Insert Hour'
                            value={this.state.EBHours}
                            save={(newDate)=>{this.onSaveEBHour(newDate)}}/>
-               
+                       <Item success>
+                            <Input placeholder='Insert Comment'/>
+                            <Icon name='checkmark-circle'/>
+                       </Item>
                     </View>
                     <Foter navigation={this.state.navigation}/>
                </View>
