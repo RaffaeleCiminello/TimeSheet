@@ -160,35 +160,35 @@ export default class Add extends Component {
                            mode='date'
                            label='Insert Date'
                             placeHolder='Insert Date'
-                            PropsfullDate={this.state.fullDate}
+                            value={this.state.fullDate}
                             save={(newDate)=>{this.onSaveData(newDate)}}/>
                
                        <DateTimePicker
                            mode='time'
                            label='Insert Start Hour'
                            placeHolder='Insert Hour'
-                            PropsStartHours={this.state.StartHours}
+                            value={this.state.StartHours}
                             save={(newDate)=>{this.onSaveStartHour(newDate)}}/>
                
                        <DateTimePicker
                            mode='time'
                            label='Insert End Hour'
                            placeHolder='Insert Hour'
-                            PropsEndHours={this.state.EndHours}
+                            value={this.state.EndHours}
                            save={(newDate)=>{this.onSaveEndHour(newDate)}}/>
                
                         <DateTimePicker
                            mode='time'
                            label='Insert Start Break Hour'
                            placeHolder='Insert Hour'
-                            PropsSBHours={this.state.SBHours}
+                            value={this.state.SBHours}
                             save={(newDate)=>{this.onSaveSBHour(newDate)}}/>
                
                         <DateTimePicker
                            mode='time'
                            label='Insert End Break Hour'
                            placeHolder='Insert Hour'
-                            PropsEBHours={this.state.EBHours}
+                            value={this.state.EBHours}
                             save={(newDate)=>{this.onSaveEBHour(newDate)}}/>
                
                 </View>

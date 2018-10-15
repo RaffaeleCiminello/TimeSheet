@@ -12,11 +12,7 @@ class DateTimePicker extends Component {
                 label:props.label,
                 placeHolder:props.placeHolder,
                 save:props.save,
-                PropsfullDate:props.PropsfullDate,
-                PropsStartHours:props.PropsStartHours,
-                PropsEndHours:props.PropsEndHours,
-                PropsSBHours:props.PropsSBHours,
-                PropsEBHours:props.PropsEBHours,
+                value:props.value,
                 chosenDate:new Date,
                 modalVisible:false,
             
