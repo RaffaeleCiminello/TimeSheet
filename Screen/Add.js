@@ -34,11 +34,11 @@ export default class Add extends Component {
         return {
         headerTitle:'Add Appointment',
         headerRight:
-            <TouchableOpacity>
+            <TouchableOpacity style={styles.buttonHeader}>
                 <Text style={styles.txt}>Save</Text>
             </TouchableOpacity>,
         headerLeft:
-            <TouchableOpacity onPress={()=>{this.onClear()}}>
+            <TouchableOpacity style={styles.buttonHeader} onPress={()=>{this.onClear()}}>
                 <Text style={styles.txt}>Clear All</Text>
             </TouchableOpacity>,
         }
@@ -230,6 +230,7 @@ const styles = StyleSheet.create({
                                      },
                                      placeholder:{
                                          fontSize: 20,
+                                         fontWeight: '200',
                                          color: '#a6a6a6',
                                          justifyContent:'center',
                                      },

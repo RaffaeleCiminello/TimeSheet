@@ -61,16 +61,10 @@ class DateTimePicker extends Component {
     
     
     render(){
-        var {height, width} = Dimensions.get('window');
-        let space=
-            {
-            height:height/30,
-            }
-        
         return(
                <View>
                    <View style={styles.row}>
-                       <Text style={styles.txt}>{this.state.label}:</Text>
+                       <Text style={styles.txtmargin}>{this.state.label}:</Text>
                        <TouchableOpacity onPress={() => {this.setModalVisible()}}>
                        {this.state.value===null?
                             <Text style={styles.placeHolder}>{this.state.placeHolder}</Text>
@@ -93,7 +87,7 @@ class DateTimePicker extends Component {
                            </Button>
                         </View>
                    </Modal>
-                   <View style={space}/>
+                   <View style={styles.space}/>
                </View>
                );
     }
@@ -114,8 +108,18 @@ const styles=StyleSheet.create({
                                     color: 'black',
                                     margin:3,
                                    },
+                                   txtmargin:{
+                                    fontSize: 20,
+                                    fontWeight: '200',
+                                    color: 'black',
+                                    marginLeft:5,
+                                    marginRight:3,
+                                    marginTop:3,
+                                    marginBottom:3,
+                                   },
                                    placeHolder:{
                                     fontSize: 20,
+                                    fontWeight: '200',
                                     color: '#a6a6a6',
                                     margin:3,
                                    },
@@ -136,6 +140,9 @@ const styles=StyleSheet.create({
                                     fontSize: 20,
                                     fontWeight: '300',
                                     color: '#2874F0',
+                                   },
+                                   space:{
+                                    marginTop:16,
                                    },
                                })
 export default DateTimePicker

@@ -12,7 +12,7 @@ const Navigator = createStackNavigator(
                                 },
                                   
                                 {
-                                initialRouteName: 'Setting',
+                                initialRouteName: 'Add',
                                 }
                             );
 

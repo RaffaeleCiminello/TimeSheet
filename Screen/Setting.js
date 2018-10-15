@@ -86,7 +86,8 @@ export default class Setting extends Component {
         var {height, width} = Dimensions.get('window');
         let view=
             {
-            height:height-119,
+                height:height-119,
+                paddingTop:15,
             }
         
         return(
