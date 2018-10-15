@@ -5,22 +5,21 @@ import Modal from 'react-native-modal';
 
 class DateTimePicker extends Component {
     constructor(props){
-            super(props);
-            this.state={
-                navigation:props.navigation,
-                mode:props.mode,
-                label:props.label,
-                placeHolder:props.placeHolder,
-                save:props.save,
-                value:props.value,
-                chosenDate:new Date,
-                modalVisible:false,
-            
-            };
-            this.onClose=this.onClose.bind(this);
-            this.setDate=this.setDate.bind(this);
-            this.setModalVisible = this.setModalVisible.bind(this);
-        }
+        super(props);
+        this.state={
+            navigation:props.navigation,
+            mode:props.mode,
+            label:props.label,
+            placeHolder:props.placeHolder,
+            save:props.save,
+            value:props.value,
+            chosenDate:new Date,
+            modalVisible:false,
+        };
+        this.onClose=this.onClose.bind(this);
+        this.setDate=this.setDate.bind(this);
+        this.setModalVisible=this.setModalVisible.bind(this);
+    }
     
     /*Aggiorna le Props*/
     componentDidUpdate(prevProps) {
@@ -35,8 +34,6 @@ class DateTimePicker extends Component {
                           });
         }
     }
-    
-    
     
     /*Apre il Modal*/
     setModalVisible() {
@@ -58,87 +55,88 @@ class DateTimePicker extends Component {
         this.setState({
                       modalVisible:false,
                       },
-                      ()=>{console.log(this.state)});
-        
+                      ()=>{console.log(this.state)}
+                    );
     }
     
     
     render(){
         var {height, width} = Dimensions.get('window');
-            let space=
-                {
-                    height:height/30,
-                }
+        let space=
+            {
+            height:height/30,
+            }
+        
         return(
                <View>
                    <View style={styles.row}>
-                            <Text style={styles.txt}>{this.state.label}:</Text>
-                            <TouchableOpacity onPress={() => {this.setModalVisible()}}>
-                            {this.state.value===null?
-                                <Text style={styles.placeHolder}>{this.state.placeHolder}</Text>
-                            :
-                                <Text style={styles.txt}>{this.state.value}</Text>}
-                            </TouchableOpacity>
-                    </View>
-                    <Modal style={styles.bottomModal}
+                       <Text style={styles.txt}>{this.state.label}:</Text>
+                       <TouchableOpacity onPress={() => {this.setModalVisible()}}>
+                       {this.state.value===null?
+                            <Text style={styles.placeHolder}>{this.state.placeHolder}</Text>
+                       :
+                            <Text style={styles.txt}>{this.state.value}</Text>}
+                       </TouchableOpacity>
+                   </View>
+                   <Modal style={styles.bottomModal}
                        animationType="slide"
                        transparent={true}
-                        visible={this.state.modalVisible}
+                       visible={this.state.modalVisible}
                        onBackdropPress={() => {this.setState({modalVisible: false})}}>
-                           <View style={styles.modalContent}>
-                               <DatePickerIOS
-                                   date={this.state.chosenDate}
-                                   onDateChange={this.setDate}
-                                   mode={this.state.mode}
-                                   />
-                                <Button block light style={styles.button} onPress={this.onClose}>
+                       <View style={styles.modalContent}>
+                           <DatePickerIOS
+                               date={this.state.chosenDate}
+                               onDateChange={this.setDate}
+                               mode={this.state.mode}/>
+                           <Button block light style={styles.button} onPress={this.onClose}>
                                 <Text style={styles.ButtonText}>Save</Text>
-                               </Button>
-                            </View>
-                    </Modal>
-               <View style={space}/>
+                           </Button>
+                        </View>
+                   </Modal>
+                   <View style={space}/>
                </View>
-        );
+               );
     }
 }
 const styles=StyleSheet.create({
-                                     row:{
-                                         flexDirection: 'row',
-                                     },
-                                     button:{
-                                         margin:5,
-                                         backgroundColor: 'white',
-                                         justifyContent: 'center',
-                                         borderRadius: 20,
-                                     },
-                                     txt:{
-                                         fontSize: 20,
-                                         fontWeight: '200',
-                                         color: 'black',
-                                         margin:3,
-                                     },
-                                     placeHolder:{
-                                         fontSize: 20,
-                                         color: '#a6a6a6',
-                                         margin:3,
-                                     },
-                                    modalContent: {
-                                        marginTop:10,
-                                        marginBottom:10,
-                                        marginRight:20,
-                                        marginLeft:20,
-                                        backgroundColor: 'white',
-                                        justifyContent: 'center',
-                                        borderRadius: 20,
-                                      },
-                                      bottomModal: {
-                                          justifyContent: 'flex-end',
-                                          margin: 0,
-                                      },
-                                      ButtonText:{
-                                          fontSize: 20,
-                                          fontWeight: '300',
-                                          color: '#2874F0',
-                                      },
-                                    })
+                                   row:{
+                                    flexDirection: 'row',
+                                   },
+                                   button:{
+                                    margin:5,
+                                    backgroundColor: 'white',
+                                    justifyContent: 'center',
+                                    borderRadius: 20,
+                                   },
+                                   txt:{
+                                    fontSize: 20,
+                                    fontWeight: '200',
+                                    color: 'black',
+                                    margin:3,
+                                   },
+                                   placeHolder:{
+                                    fontSize: 20,
+                                    color: '#a6a6a6',
+                                    margin:3,
+                                   },
+                                   modalContent: {
+                                    marginTop:10,
+                                    marginBottom:10,
+                                    marginRight:20,
+                                    marginLeft:20,
+                                    backgroundColor: 'white',
+                                    justifyContent: 'center',
+                                    borderRadius: 20,
+                                   },
+                                   bottomModal: {
+                                    justifyContent: 'flex-end',
+                                    margin: 0,
+                                   },
+                                   ButtonText:{
+                                    fontSize: 20,
+                                    fontWeight: '300',
+                                    color: '#2874F0',
+                                   },
+                               })
 export default DateTimePicker
+

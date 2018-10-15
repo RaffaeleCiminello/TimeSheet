@@ -146,9 +146,9 @@ export default class Add extends Component {
     render(){
         var {height, width} = Dimensions.get('window');
         let view=
-        {
-        height:height-119,
-        }
+            {
+                height:height-119,
+            }
         
         return(
                <View>

@@ -6,14 +6,12 @@ class Foter extends Component {
     constructor(props){
         super(props);
         this.state={
-        navigation:props.navigation,
+            navigation:props.navigation,
         }
     }
     
     render() {
         return (
-                
-                
                 <Footer>
                     <FooterTab>
                         <Button  onPress={()=> this.props.navigation.navigate('Appointment')}>
