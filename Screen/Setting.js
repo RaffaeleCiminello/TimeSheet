@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, Dimensions, TouchableOpacity,} from 'react-native';
-import {Button,} from 'native-base';
+import {Button} from 'native-base';
 import Foter from '../Component/Footer.js';
 import DateTimePicker from '../Component/DateTimePicker.js';
 
@@ -15,7 +15,7 @@ export default class Setting extends Component {
             DefStartHours:null,
             DefEndHours:null,
             DefSBHours:null,
-            DefEBHours:null,,
+            DefEBHours:null,
             chosenDate: new Date()
             }
         this.onSaveDefStartHour = this.onSaveDefStartHour.bind(this);
@@ -109,15 +109,15 @@ export default class Setting extends Component {
                            label='Insert Break Default Start Hour'
                            placeHolder='Insert Hour'
                            value={this.state.DefSBHours}
-                           save={(newDate)=>{this.onSaveDefSBHours(newDate)}}/>
+                           save={(newDate)=>{this.onSaveDefSBHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
                            label='Insert Breck Default End Hour'
                            placeHolder='Insert Hour'
                            value={this.state.DefEBHours}
-                           save={(newDate)=>{this.onSaveDefEBHours(newDate)}}/>
+                           save={(newDate)=>{this.onSaveDefEBHour(newDate)}}/>
                    </View>
-                   <Foter/>
+                   <Foter navigation={this.state.navigation}/>
                </View>
         );
     }

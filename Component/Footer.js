@@ -14,15 +14,15 @@ class Foter extends Component {
         return (
                 <Footer>
                     <FooterTab>
-                        <Button  onPress={()=> this.props.navigation.navigate('Appointment')}>
+                        <Button  onPress={()=>this.props.navigation.navigate('Appointment')}>
                             <Icon name="bookmarks" />
                             <Text>Appointment</Text>
                         </Button>
-                        <Button onPress={() =>{this.state.navigation.navigate('Add')}}>
+                        <Button onPress={()=>{this.state.navigation.navigate('Add')}}>
                             <Icon name="add" />
                             <Text>Add</Text>
                         </Button>
-                        <Button onPress={() => {this.state.navigation.navigate('Setting')}} >
+                        <Button onPress={()=>{this.state.navigation.navigate('Setting')}} >
                             <Icon name="settings" />
                             <Text>Setting</Text>
                         </Button>
