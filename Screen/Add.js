@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, Dimensions, Flatlist, List, ListItem, TouchableOpacity} from 'react-native';
-import {Button, Icon, Form, Picker, CheckBox} from 'native-base';
+import {View, StyleSheet, Text, Dimensions, TouchableOpacity} from 'react-native';
+import {Picker} from 'native-base';
 import Foter from '../Component/Footer.js';
 import DateTimePicker from '../Component/DateTimePicker.js';
 

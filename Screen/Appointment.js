@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, ScrollView, FlatList, Text, StyleSheet, Dimensions, } from 'react-native';
 import Foter from '../Component/Footer.js';
-import {Button, Icon, Footer, FooterTab } from 'native-base';
 
 export default class Appointment extends Component {
     
