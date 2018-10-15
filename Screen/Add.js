@@ -134,6 +134,7 @@ export default class Add extends Component {
     /*Resetta i valori impostati*/
     onClear(){
         this.setState({
+                      selected:null,
                       fullDate:null,
                       StartHours:null,
                       EndHours:null,
