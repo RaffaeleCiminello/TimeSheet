@@ -1,0 +1,31 @@
+{
+	"dati": [{
+			"id": "1",
+			"Project": "DROPSA",
+			"SHour": "8:00",
+			"EHour": "18:00",
+            "THour": "9",
+			"SBhour": "13:00",
+			"EBHour": "14:00",
+            "TBHour": "1"
+		},
+		{
+			"id": "2",
+			"Project": "FCA",
+			"SHour": "9:30",
+			"EHour": "17:30",
+            "THour": "9",
+			"SBhour": "13:00",
+			"EBHour": "14:30",
+            "TBHour": "1:30"
+		},
+		{
+			"id": "3",
+			"Project": "TimeSheet App",
+			"SHour": "10:00",
+			"EHour": "13:00",
+            "THour": "3",
+		}
+
+	]
+}
