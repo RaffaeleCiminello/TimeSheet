@@ -29,6 +29,11 @@ class DateTimePicker extends Component {
                           modalVisible: this.props.modalVisible
                           });
         }
+        if (this.props.value !== prevProps.value) {
+            this.setState({
+                          value: this.props.value
+                          });
+        }
     }
     
     
@@ -69,7 +74,10 @@ class DateTimePicker extends Component {
                    <View style={styles.row}>
                             <Text style={styles.txt}>{this.state.label}:</Text>
                             <TouchableOpacity onPress={() => {this.setModalVisible()}}>
-                            <Text style={styles.txtopen}>{this.state.placeHolder}</Text>
+                            {this.state.value===null?
+                                <Text style={styles.placeHolder}>{this.state.placeHolder}</Text>
+                            :
+                                <Text style={styles.txt}>{this.state.value}</Text>}
                             </TouchableOpacity>
                     </View>
                     <Modal style={styles.bottomModal}
@@ -109,7 +117,7 @@ const styles=StyleSheet.create({
                                          color: 'black',
                                          margin:3,
                                      },
-                                     txtopen:{
+                                     placeHolder:{
                                          fontSize: 20,
                                          color: '#a6a6a6',
                                          margin:3,
