@@ -141,7 +141,7 @@ const styles=StyleSheet.create({
                                     color: '#2874F0',
                                    },
                                    space:{
-                                    marginTop:16,
+                                    marginTop:15,
                                    },
                                })
 export default DateTimePicker

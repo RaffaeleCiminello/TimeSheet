@@ -238,6 +238,11 @@ const styles = StyleSheet.create({
                                          fontWeight: '200',
                                          color: '#a6a6a6',
                                          justifyContent:'center',
+                                         paddingLeft:0,
+                                         marginLeft:5,
+                                     },
+                                     buttonHeader:{
+                                        margin:5,
                                      },
                                  })
 
