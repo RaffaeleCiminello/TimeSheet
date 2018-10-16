@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {View, AppRegistry, StyleSheet, Text, TouchableOpacity, DatePickerIOS, Dimensions} from 'react-native';
 import {Button, Icon, Footer, FooterTab } from 'native-base';
 import Modal from 'react-native-modal';
+import {moment} from 'moment';
 
 class DateTimePicker extends Component {
     constructor(props){
@@ -13,14 +14,14 @@ class DateTimePicker extends Component {
             placeHolder:props.placeHolder,
             save:props.save,
             value:props.value,
-            chosenDate:new Date,
+            chosenDate:moment(),
             modalVisible:false,
         };
         this.onClose=this.onClose.bind(this);
         this.setDate=this.setDate.bind(this);
         this.setModalVisible=this.setModalVisible.bind(this);
     }
-    
+        
     /*Aggiorna le Props*/
     componentDidUpdate(prevProps) {
         if (this.props.modalVisible !== prevProps.modalVisible) {
