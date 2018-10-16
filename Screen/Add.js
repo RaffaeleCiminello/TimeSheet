@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, Dimensions, TouchableOpacity} from 'react-native';
 import {Picker, Item, Icon, Input} from 'native-base';
-import {moment} from 'moment';
 import Foter from '../Component/Footer.js';
 import DateTimePicker from '../Component/DateTimePicker.js';
 
@@ -40,7 +39,7 @@ export default class Add extends Component {
                 <Text style={styles.txt}>Save</Text>
             </TouchableOpacity>,
         headerLeft:
-            <TouchableOpacity style={styles.buttonHeader} onPress={()=>{this.onClear()}}>
+            <TouchableOpacity style={styles.buttonHeader} onPress={this.onClear}>
                 <Text style={styles.txt}>Clear All</Text>
             </TouchableOpacity>,
         }
@@ -135,6 +134,7 @@ export default class Add extends Component {
     
     /*Resetta i valori impostati*/
     onClear(){
+        console.log(this.state);
         this.setState({
                       selected:null,
                       fullDate:null,
@@ -142,7 +142,8 @@ export default class Add extends Component {
                       EndHours:null,
                       SBHours:null,
                       EBHours:null,
-                      })
+                      comment:null,
+                      });
     }
     
     render(){

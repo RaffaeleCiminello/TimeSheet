@@ -14,7 +14,7 @@ class DateTimePicker extends Component {
             placeHolder:props.placeHolder,
             save:props.save,
             value:props.value,
-            chosenDate:moment(),
+            chosenDate:new Date,
             modalVisible:false,
         };
         this.onClose=this.onClose.bind(this);
@@ -55,9 +55,7 @@ class DateTimePicker extends Component {
         this.props.save(this.state.chosenDate);
         this.setState({
                       modalVisible:false,
-                      },
-                      ()=>{console.log(this.state)}
-                    );
+                      });
     }
     
     render(){
