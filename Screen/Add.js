@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, Dimensions, TouchableOpacity} from 'react-native';
-import {Picker, Item, Icon, Input} from 'native-base';
+import {Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput} from 'react-native';
+import {Picker, Item, Icon, Input } from 'native-base';
 import Foter from '../Component/Footer.js';
 import DateTimePicker from '../Component/DateTimePicker.js';
 
@@ -21,17 +21,16 @@ export default class Add extends Component {
             EBHours:null,
             comment:null,
             }
-        
         this.onSaveData = this.onSaveData.bind(this);
         this.onSaveStartHour = this.onSaveStartHour.bind(this);
         this.onSaveEndHour = this.onSaveEndHour.bind(this);
         this.onSaveSBHour = this.onSaveSBHour.bind(this);
         this.onSaveEBHour = this.onSaveEBHour.bind(this);
-        this.onClear = this.onClear.bind(this);
     }
     
     /*Impostazione Elementi Navigator*/
     static navigationOptions=({navigation})=>{
+        const {params={}}=navigation.state;
         return {
         headerTitle:'Add Appointment',
         headerRight:
@@ -39,7 +38,7 @@ export default class Add extends Component {
                 <Text style={styles.txt}>Save</Text>
             </TouchableOpacity>,
         headerLeft:
-            <TouchableOpacity style={styles.buttonHeader} onPress={this.onClear}>
+            <TouchableOpacity style={styles.buttonHeader} onPress={navigation.getParam('onClear')}>
                 <Text style={styles.txt}>Clear All</Text>
             </TouchableOpacity>,
         }
@@ -54,6 +53,13 @@ export default class Add extends Component {
                             dataSource: responseJson.dati,
                             });
               })
+    }
+    
+    /*Setta un Param nel navigator per far funzionare onClear*/
+    componentWillMount() {
+        this.props.navigation.setParams({
+                                        onClear: this.onClear
+                                        });
     }
     
     /*Imposta i Valori Default al picker*/
@@ -133,8 +139,7 @@ export default class Add extends Component {
     }
     
     /*Resetta i valori impostati*/
-    onClear(){
-        console.log(this.state);
+    onClear= () => {
         this.setState({
                       selected:null,
                       fullDate:null,
@@ -144,7 +149,7 @@ export default class Add extends Component {
                       EBHours:null,
                       comment:null,
                       });
-    }
+    };
     
     render(){
         var {height, width} = Dimensions.get('window');
@@ -202,7 +207,10 @@ export default class Add extends Component {
                            value={this.state.EBHours}
                            save={(newDate)=>{this.onSaveEBHour(newDate)}}/>
                        <Item>
-                            <Input placeholder='Insert Comment' value={this.state.comment}/>
+                            <Input
+                               placeholder='Insert Comment'
+                               onChangeText={(comment)=>this.setState({comment})} v
+                               value={this.state.comment}/>
                        </Item>
                     </View>
                     <Foter navigation={this.state.navigation}/>
@@ -242,7 +250,10 @@ const styles = StyleSheet.create({
                                          marginLeft:5,
                                      },
                                      buttonHeader:{
-                                        margin:5,
+                                         margin:5,
+                                     },
+                                     textarea:{
+                                         height:20,
                                      },
                                  })
 
