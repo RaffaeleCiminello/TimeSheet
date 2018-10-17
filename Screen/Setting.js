@@ -51,6 +51,9 @@ export default class Setting extends Component {
     
     /*Salva l'ora di inizio default*/
     onSaveDefStartHour(newDate){
+        this.props.navigation.setParams({
+                                        correct:true,
+                                        });
         this.setState({
                       chosenDate:newDate,
                       },
@@ -63,6 +66,9 @@ export default class Setting extends Component {
     
     /*Salva l'ora di fine default*/
     onSaveDefEndHour(newDate){
+        this.props.navigation.setParams({
+                                        correct:true,
+                                        });
         this.setState({
                       chosenDate:newDate,
                       },
@@ -75,6 +81,9 @@ export default class Setting extends Component {
     
     /*Salva l'ora di inizio default della pausa */
     onSaveDefSBHour(newDate){
+        this.props.navigation.setParams({
+                                        correct:true,
+                                        });
         this.setState({
                       chosenDate:newDate,
                       },
@@ -87,6 +96,9 @@ export default class Setting extends Component {
     
     /*Salva l'ora di fine default della pausa */
     onSaveDefEBHour(newDate){
+        this.props.navigation.setParams({
+                                        correct:true,
+                                        });
         this.setState({
                       chosenDate:newDate,
                       },
@@ -99,10 +111,18 @@ export default class Setting extends Component {
     
     /*Salva i dati in memoria e nel json*/
     onSave = async () => {
+        if(this.state.DefStartHours!==null){
             await AsyncStorage.setItem('DefStartHours', this.state.DefStartHours);
+        }
+        if(this.state.DefEndHours!==null){
             await AsyncStorage.setItem('DefEndHours', this.state.DefEndHours);
+        }
+        if(this.state.DefSBHours!==null){
             await AsyncStorage.setItem('DefSBHours', this.state.DefSBHours);
+        }
+        if(this.state.DefEBHours!==null){
             await AsyncStorage.setItem('DefEBHours', this.state.DefEBHours);
+        }
     }
     
     render(){
