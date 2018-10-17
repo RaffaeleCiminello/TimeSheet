@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, Dimensions, TouchableOpacity,} from 'react-native';
-import {Button} from 'native-base';
+import {View, StyleSheet, Text, Dimensions, TouchableOpacity, AsyncStorage, Alert} from 'react-native';
 import Foter from '../Component/Footer.js';
 import DateTimePicker from '../Component/DateTimePicker.js';
 
@@ -26,11 +25,28 @@ export default class Setting extends Component {
     
     /*Impostazione Elementi Navigator*/
     static navigationOptions=({navigation})=>{
+        const {params={}}=navigation.state;
         return {
         headerTitle:'Setting',
-        headerRight: null,
+        headerRight:
+            navigation.getParam('correct')===false ?
+            null
+            :
+            (
+            <TouchableOpacity style={styles.buttonHeader} onPress={navigation.getParam('onSave')}>
+                <Text style={styles.txt}>Save</Text>
+            </TouchableOpacity>
+             ),
         headerLeft: null,
         }
+    }
+    
+    /*Setta un Param nel navigator per far funzionare onClear*/
+    componentWillMount() {
+        this.props.navigation.setParams({
+                                        correct:false,
+                                        onSave: this.onSave
+                                        });
     }
     
     /*Salva l'ora di inizio default*/
@@ -81,6 +97,14 @@ export default class Setting extends Component {
                       });
     }
     
+    /*Salva i dati in memoria e nel json*/
+    onSave = async () => {
+            await AsyncStorage.setItem('DefStartHours', this.state.DefStartHours);
+            await AsyncStorage.setItem('DefEndHours', this.state.DefEndHours);
+            await AsyncStorage.setItem('DefSBHours', this.state.DefSBHours);
+            await AsyncStorage.setItem('DefEBHours', this.state.DefEBHours);
+    }
+    
     render(){
         
         var {height, width} = Dimensions.get('window');
@@ -107,13 +131,13 @@ export default class Setting extends Component {
                            save={(newDate)=>{this.onSaveDefEndHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
-                           label='Insert Break Default Start Hour'
+                           label='Insert Start Break Default Hour'
                            placeHolder='Insert Hour'
                            value={this.state.DefSBHours}
                            save={(newDate)=>{this.onSaveDefSBHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
-                           label='Insert Breck Default End Hour'
+                           label='Insert End Breack Default Hour'
                            placeHolder='Insert Hour'
                            value={this.state.DefEBHours}
                            save={(newDate)=>{this.onSaveDefEBHour(newDate)}}/>
@@ -123,3 +147,15 @@ export default class Setting extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+                                    txt:{
+                                        fontSize: 20,
+                                        fontWeight: '200',
+                                        color: 'black',
+                                        paddingTop:3,
+                                    },
+                                    buttonHeader:{
+                                        margin:5,
+                                    },
+                                 })

@@ -252,8 +252,5 @@ const styles = StyleSheet.create({
                                      buttonHeader:{
                                          margin:5,
                                      },
-                                     textarea:{
-                                         height:20,
-                                     },
                                  })
 
