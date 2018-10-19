@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, Dimensions, TouchableOpacity, AsyncStorage} from 'react-native';
+import {View, StyleSheet, Text, Dimensions, TouchableOpacity, AsyncStorage,} from 'react-native';
 import Foter from '../Component/Footer.js';
 import DateTimePicker from '../Component/DateTimePicker.js';
+var moment = require('moment');
 
 export default class Setting extends Component {
     
@@ -78,6 +79,26 @@ export default class Setting extends Component {
         }
     }
     
+    /*svuota la pagina all'uscita*/
+    componentWillUnmount(){
+        if(MemDefStartHours===null || MemDefEndHours===null || MemDefSBHours===null || MemDefEBHours===null){
+        this.setState({
+                      DefStartHours: null,
+                      DefEndHours: null,
+                      DefSBHours: null,
+                      DefEBHours: null,
+                      MemDefStartHours: null,
+                      MemDefEndHours: null,
+                      MemDefSBHours: null,
+                      MemDefEBHours: null,
+                      });
+        }
+        this.props.navigation.setParams({
+                                        save:false,
+                                        clear:true,
+                                        });
+    }
+    
     /*Salva l'ora di inizio default*/
     onSaveDefStartHour(newDate){
         this.props.navigation.setParams({
@@ -89,7 +110,7 @@ export default class Setting extends Component {
                       },
                       ()=>{
                       this.setState({
-                                    DefStartHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
+                                    DefStartHours:moment(this.state.chosenDate).format('LT')
                                     });
                       });
     }
@@ -105,7 +126,7 @@ export default class Setting extends Component {
                       },
                       ()=>{
                       this.setState({
-                                    DefEndHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
+                                    DefEndHours:moment(this.state.chosenDate).format('LT')
                                     });
                       });
     }
@@ -121,7 +142,7 @@ export default class Setting extends Component {
                       },
                       ()=>{
                       this.setState({
-                                    DefSBHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
+                                    DefSBHours:moment(this.state.chosenDate).format('LT')
                                     });
                       });
     }
@@ -137,7 +158,7 @@ export default class Setting extends Component {
                       },
                       ()=>{
                       this.setState({
-                                    DefEBHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
+                                    DefEBHours:moment(this.state.chosenDate).format('LT')
                                     });
                       });
     }
@@ -188,6 +209,7 @@ export default class Setting extends Component {
                       });
         this.props.navigation.setParams({
                                         reset:false,
+                                        save:false,
                                         });
     }
     

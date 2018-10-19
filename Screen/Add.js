@@ -108,7 +108,8 @@ export default class Add extends Component {
     /*Setta un Param nel navigator per far funzionare onClear*/
     componentWillMount(){
         this.props.navigation.setParams({
-                                        save:true,
+                                        save:false,
+                                        clear:false,
                                         onSave: this.onSave,
                                         onClear: this.onClear,
                                         });
@@ -140,7 +141,7 @@ export default class Add extends Component {
                       },
                       ()=>{
                       this.setState({
-                                    fullDate:this.state.chosenDate.getDate()+'/'+(this.state.chosenDate.getMonth()+1)+'/'+this.state.chosenDate.getFullYear()
+                                    fullDate:moment(this.state.chosenDate).format('L')
                                     });
                       });
         this.props.navigation.setParams({
@@ -155,7 +156,7 @@ export default class Add extends Component {
                       },
                       ()=>{
                       this.setState({
-                                    StartHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
+                                    StartHours:moment(this.state.chosenDate).format('LT')
                                     });
                       });
         this.props.navigation.setParams({
@@ -170,7 +171,7 @@ export default class Add extends Component {
                       },
                       ()=>{
                       this.setState({
-                                    EndHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
+                                    EndHours:moment(this.state.chosenDate).format('LT')
                                     });
                       });
         this.props.navigation.setParams({
@@ -185,7 +186,7 @@ export default class Add extends Component {
                       },
                       ()=>{
                       this.setState({
-                                    SBHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
+                                    SBHours:moment(this.state.chosenDate).format('LT')
                                     });
                       });
         this.props.navigation.setParams({
@@ -200,7 +201,7 @@ export default class Add extends Component {
                       },
                       ()=>{
                       this.setState({
-                                    EBHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
+                                    EBHours:moment(this.state.chosenDate).format('LT')
                                     });
                       });
         this.props.navigation.setParams({

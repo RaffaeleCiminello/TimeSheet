@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {View, AppRegistry, StyleSheet, Text, TouchableOpacity, DatePickerIOS, Dimensions, AsyncStorage} from 'react-native';
 import {Button, Icon, Footer, FooterTab } from 'native-base';
 import Modal from 'react-native-modal';
-import {moment} from 'moment';
+var moment = require('moment');
 
 class DateTimePicker extends Component {
     constructor(props){
@@ -14,7 +14,7 @@ class DateTimePicker extends Component {
             placeHolder:props.placeHolder,
             save:props.save,
             value:props.value,
-            chosenDate:new Date,
+            chosenDate: moment(),
             modalVisible:false,
         };
         this.onClose=this.onClose.bind(this);
@@ -42,6 +42,7 @@ class DateTimePicker extends Component {
                       chosenDate:new Date,
                       modalVisible:true,
                       });
+        console.log(this.state)
     }
     
     /*Permette di cambiare la data del Picker*/
