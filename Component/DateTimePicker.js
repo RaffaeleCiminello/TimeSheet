@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, AppRegistry, StyleSheet, Text, TouchableOpacity, DatePickerIOS, Dimensions} from 'react-native';
+import {View, AppRegistry, StyleSheet, Text, TouchableOpacity, DatePickerIOS, Dimensions, AsyncStorage} from 'react-native';
 import {Button, Icon, Footer, FooterTab } from 'native-base';
 import Modal from 'react-native-modal';
 import {moment} from 'moment';

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput} from 'react-native';
+import {Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, AsyncStorage} from 'react-native';
 import {Picker, Item, Icon, Input } from 'native-base';
 import Foter from '../Component/Footer.js';
 import DateTimePicker from '../Component/DateTimePicker.js';
@@ -45,15 +45,22 @@ export default class Add extends Component {
     }
     
     /*Chiamata al Json*/
-    componentDidMount() {
+    componentDidMount= () => {
         return fetch('https://mysterious-forest-84539.herokuapp.com/dati.json')
         .then((response) => response.json())
         .then((responseJson)=>{
               this.setState({
                             dataSource: responseJson.dati,
                             });
-              })
-    }
+              });
+        
+        this.setState({
+                      DefStartHours: AsyncStorage.getItem('DefStartHours'),
+                      DefEndHours:  AsyncStorage.getItem('DefEndHours'),
+                      DefStartHours: AsyncStorage.getItem('DefSBHours'),
+                      DefEndHours: AsyncStorage.getItem('DefEBHours'),
+                      });
+        }
     
     /*Setta un Param nel navigator per far funzionare onClear*/
     componentWillMount() {
@@ -185,7 +192,12 @@ export default class Add extends Component {
                        <DateTimePicker
                            mode='time'
                            label='Insert Start Hour'
-                           placeHolder='Insert Hour'
+               {this.state.DefStartHours!== null?
+                            placeHolder={this.state.DefStartHours}
+               :
+               placeHolder='Insert Hour'
+               
+               }
                            value={this.state.StartHours}
                            save={(newDate)=>{this.onSaveStartHour(newDate)}}/>
                        <DateTimePicker
