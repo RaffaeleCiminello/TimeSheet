@@ -34,13 +34,23 @@ export default class Add extends Component {
         return {
         headerTitle:'Add Appointment',
         headerRight:
-            <TouchableOpacity style={styles.buttonHeader}>
-                <Text style={styles.txt}>Save</Text>
-            </TouchableOpacity>,
+            navigation.getParam('correct')===false ?
+                null
+            :
+                (
+                 <TouchableOpacity style={styles.buttonHeader} onPress={navigation.getParam('onSave')}>
+                    <Text style={styles.txt}>Save</Text>
+                 </TouchableOpacity>
+                 ),
         headerLeft:
-            <TouchableOpacity style={styles.buttonHeader} onPress={navigation.getParam('onClear')}>
-                <Text style={styles.txt}>Clear All</Text>
-            </TouchableOpacity>,
+            navigation.getParam('allocate')===false ?
+                null
+            :
+                (
+                 <TouchableOpacity style={styles.buttonHeader} onPress={navigation.getParam('onClear')}>
+                    <Text style={styles.txt}>Clear All</Text>
+                 </TouchableOpacity>
+                 ),
         }
     }
     
@@ -61,12 +71,45 @@ export default class Add extends Component {
                             DefEBHours: DefEBHours
                             });
               })
+        if(DefStartHours!==null || DefEndHours!==null || DefSBHours!==null || DefEBHours!==null) {
+            this.props.navigation.setParams({
+                                            allocate:true,
+                                            });
+            }
+        else{
+            this.props.navigation.setParams({
+                                            allocate:false,
+                                            });
+            }
         }
     
-    /*Setta un Param nel navigator per far funzionare onClear*/
-    componentWillMount() {
+    /*svuota la pagina all'uscita*/
+    componentWillUnmount(){
+        this.setState({
+                      selected:null,
+                      fullDate:null,
+                      StartHours:null,
+                      EndHours:null,
+                      SBHours:null,
+                      EBHours:null,
+                      comment:null,
+                      DefStartHours: null,
+                      DefEndHours: null,
+                      DefSBHours: null,
+                      DefEBHours: null,
+                      });
         this.props.navigation.setParams({
-                                        onClear: this.onClear
+                                        correct:false,
+                                        allocate:false,
+                                        });
+    }
+    
+    /*Setta un Param nel navigator per far funzionare onClear*/
+    componentWillMount(){
+        this.props.navigation.setParams({
+                                        correct:true,
+                                        onSave: this.onSave,
+                                        onClear: this.onClear,
                                         });
     }
     
@@ -75,6 +118,9 @@ export default class Add extends Component {
         this.setState({
                       selected: value
                       });
+        this.props.navigation.setParams({
+                                        allocate:true,
+                                        });
     }
     
     /*Setta i valori del Picket dal Json*/
@@ -88,7 +134,6 @@ export default class Add extends Component {
     
     /*Salva la Data del Picker*/
     onSaveData(newDate){
-        console.log(this.state);
         this.setState({
                       chosenDate:newDate,
                       },
@@ -97,6 +142,9 @@ export default class Add extends Component {
                                     fullDate:this.state.chosenDate.getDate()+'/'+(this.state.chosenDate.getMonth()+1)+'/'+this.state.chosenDate.getFullYear()
                                     });
                       });
+        this.props.navigation.setParams({
+                                        allocate:true,
+                                        });
     }
     
     /*Salva l'ora di inizio del Picker*/
@@ -109,6 +157,9 @@ export default class Add extends Component {
                                     StartHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
                                     });
                       });
+        this.props.navigation.setParams({
+                                        allocate:true,
+                                        });
     }
     
     /*Salva l'ora di fine del Picker*/
@@ -133,6 +184,9 @@ export default class Add extends Component {
                                     SBHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
                                     });
                       });
+        this.props.navigation.setParams({
+                                        allocate:true,
+                                        });
     }
     
     /*Salva l'ora di fine della pausa del Picker*/
@@ -145,6 +199,9 @@ export default class Add extends Component {
                                     EBHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
                                     });
                       });
+        this.props.navigation.setParams({
+                                        allocate:true,
+                                        });
     }
     
     /*Resetta i valori impostati*/
@@ -157,7 +214,15 @@ export default class Add extends Component {
                       SBHours:null,
                       EBHours:null,
                       comment:null,
+                      DefStartHours: null,
+                      DefEndHours: null,
+                      DefSBHours: null,
+                      DefEBHours: null,
                       });
+        this.props.navigation.setParams({
+                                        correct:false,
+                                        allocate:false,
+                                        });
     };
     
     render(){

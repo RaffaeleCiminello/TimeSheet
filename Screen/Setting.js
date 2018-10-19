@@ -15,7 +15,11 @@ export default class Setting extends Component {
             DefEndHours:null,
             DefSBHours:null,
             DefEBHours:null,
-            chosenDate: new Date()
+            chosenDate: new Date(),
+            MemDefStartHours: null,
+            MemDefEndHours: null,
+            MemDefSBHours: null,
+            MemDefEBHours: null,
             }
         this.onSaveDefStartHour = this.onSaveDefStartHour.bind(this);
         this.onSaveDefEndHour = this.onSaveDefEndHour.bind(this);
@@ -29,7 +33,7 @@ export default class Setting extends Component {
         return {
         headerTitle:'Setting',
         headerRight:
-            navigation.getParam('correct')===false ?
+            navigation.getParam('save')===false ?
                 null
             :
                 (
@@ -38,7 +42,7 @@ export default class Setting extends Component {
                 </TouchableOpacity>
                  ),
         headerLeft:
-            navigation.getParam('allocate')===false ?
+            navigation.getParam('reset')===false ?
                 null
             :
                 (
@@ -49,18 +53,14 @@ export default class Setting extends Component {
         }
     }
     
-    /*Setta un Param nel navigator per far funzionare onClear*/
-    componentWillMount() {
+    /*Prende orari di default in memoria e nasconde i tasti dell'header*/
+    componentDidMount= async () => {
         this.props.navigation.setParams({
-                                        correct:false,
+                                        save:false,
                                         onSave: this.onSave,
-                                        allocate:false,
+                                        reset:false,
                                         onReset: this.onReset,
                                         });
-    }
-    
-    /*Prende orari di default in memoria*/
-    componentDidMount= async () => {
         const MemDefStartHours= await AsyncStorage.getItem('MemDefStartHours');
         const MemDefEndHours= await AsyncStorage.getItem('MemDefEndHours');
         const MemDefSBHours= await AsyncStorage.getItem('MemDefSBHours');
@@ -73,7 +73,7 @@ export default class Setting extends Component {
                             });
         if(MemDefStartHours!==null || MemDefEndHours!==null || MemDefSBHours!==null || MemDefEBHours!==null) {
             this.props.navigation.setParams({
-                                            allocate:true,
+                                            reset:true,
                                             });
         }
     }
@@ -81,7 +81,8 @@ export default class Setting extends Component {
     /*Salva l'ora di inizio default*/
     onSaveDefStartHour(newDate){
         this.props.navigation.setParams({
-                                        correct:true,
+                                        reset:true,
+                                        save:true,
                                         });
         this.setState({
                       chosenDate:newDate,
@@ -96,8 +97,9 @@ export default class Setting extends Component {
     /*Salva l'ora di fine default*/
     onSaveDefEndHour(newDate){
         this.props.navigation.setParams({
-                                        correct:true,
-                                        });
+                                       reset:true,
+                                       save:true,
+                                       });
         this.setState({
                       chosenDate:newDate,
                       },
@@ -111,7 +113,8 @@ export default class Setting extends Component {
     /*Salva l'ora di inizio default della pausa */
     onSaveDefSBHour(newDate){
         this.props.navigation.setParams({
-                                        correct:true,
+                                        reset:true,
+                                        save:true,
                                         });
         this.setState({
                       chosenDate:newDate,
@@ -126,7 +129,8 @@ export default class Setting extends Component {
     /*Salva l'ora di fine default della pausa */
     onSaveDefEBHour(newDate){
         this.props.navigation.setParams({
-                                        correct:true,
+                                        reset:true,
+                                        save:true,
                                         });
         this.setState({
                       chosenDate:newDate,
@@ -153,8 +157,8 @@ export default class Setting extends Component {
             await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
         }
         this.props.navigation.setParams({
-                                        correct:false,
-                                        allocate:true,
+                                        save:false,
+                                        reset:true,
                                         });
     }
     
@@ -183,7 +187,7 @@ export default class Setting extends Component {
                       DefEBHours:null,
                       });
         this.props.navigation.setParams({
-                                        allocate:false,
+                                        reset:false,
                                         });
     }
     
