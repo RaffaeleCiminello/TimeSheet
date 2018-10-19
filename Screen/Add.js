@@ -3,6 +3,7 @@ import {Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, 
 import {Picker, Item, Icon, Input } from 'native-base';
 import Foter from '../Component/Footer.js';
 import DateTimePicker from '../Component/DateTimePicker.js';
+var moment = require('moment');
 
 export default class Add extends Component {
     
@@ -34,7 +35,7 @@ export default class Add extends Component {
         return {
         headerTitle:'Add Appointment',
         headerRight:
-            navigation.getParam('correct')===false ?
+            navigation.getParam('save')===false ?
                 null
             :
                 (
@@ -43,7 +44,7 @@ export default class Add extends Component {
                  </TouchableOpacity>
                  ),
         headerLeft:
-            navigation.getParam('allocate')===false ?
+            navigation.getParam('clear')===false ?
                 null
             :
                 (
@@ -73,12 +74,12 @@ export default class Add extends Component {
               })
         if(DefStartHours!==null || DefEndHours!==null || DefSBHours!==null || DefEBHours!==null) {
             this.props.navigation.setParams({
-                                            allocate:true,
+                                            clear:true,
                                             });
             }
         else{
             this.props.navigation.setParams({
-                                            allocate:false,
+                                            clear:false,
                                             });
             }
         }
@@ -99,15 +100,15 @@ export default class Add extends Component {
                       DefEBHours: null,
                       });
         this.props.navigation.setParams({
-                                        correct:false,
-                                        allocate:false,
+                                        save:false,
+                                        clear:false,
                                         });
     }
     
     /*Setta un Param nel navigator per far funzionare onClear*/
     componentWillMount(){
         this.props.navigation.setParams({
-                                        correct:true,
+                                        save:true,
                                         onSave: this.onSave,
                                         onClear: this.onClear,
                                         });
@@ -119,7 +120,7 @@ export default class Add extends Component {
                       selected: value
                       });
         this.props.navigation.setParams({
-                                        allocate:true,
+                                        clear:true,
                                         });
     }
     
@@ -143,7 +144,7 @@ export default class Add extends Component {
                                     });
                       });
         this.props.navigation.setParams({
-                                        allocate:true,
+                                        clear:true,
                                         });
     }
     
@@ -158,7 +159,7 @@ export default class Add extends Component {
                                     });
                       });
         this.props.navigation.setParams({
-                                        allocate:true,
+                                        clear:true,
                                         });
     }
     
@@ -172,6 +173,9 @@ export default class Add extends Component {
                                     EndHours:this.state.chosenDate.getHours()+':'+this.state.chosenDate.getMinutes()
                                     });
                       });
+        this.props.navigation.setParams({
+                                        clear:true,
+                                        });
     }
     
     /*Salva l'ora di inizio della pausa del Picker*/
@@ -185,7 +189,7 @@ export default class Add extends Component {
                                     });
                       });
         this.props.navigation.setParams({
-                                        allocate:true,
+                                        clear:true,
                                         });
     }
     
@@ -200,7 +204,7 @@ export default class Add extends Component {
                                     });
                       });
         this.props.navigation.setParams({
-                                        allocate:true,
+                                        clear:true,
                                         });
     }
     
@@ -220,8 +224,8 @@ export default class Add extends Component {
                       DefEBHours: null,
                       });
         this.props.navigation.setParams({
-                                        correct:false,
-                                        allocate:false,
+                                        save:false,
+                                        clear:false,
                                         });
     };
     
