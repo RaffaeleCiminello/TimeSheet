@@ -20,6 +20,10 @@ export default class Add extends Component {
             SBHours:null,
             EBHours:null,
             comment:null,
+            DefStartHours: AsyncStorage.getItem('DefStartHours'),
+            DefEndHours:  AsyncStorage.getItem('DefEndHours'),
+            DefStartHours: AsyncStorage.getItem('DefSBHours'),
+            DefEndHours: AsyncStorage.getItem('DefEBHours'),
             }
         this.onSaveData = this.onSaveData.bind(this);
         this.onSaveStartHour = this.onSaveStartHour.bind(this);
@@ -45,21 +49,14 @@ export default class Add extends Component {
     }
     
     /*Chiamata al Json*/
-    componentDidMount= () => {
+    componentDidMount() {
         return fetch('https://mysterious-forest-84539.herokuapp.com/dati.json')
         .then((response) => response.json())
         .then((responseJson)=>{
               this.setState({
                             dataSource: responseJson.dati,
                             });
-              });
-        
-        this.setState({
-                      DefStartHours: AsyncStorage.getItem('DefStartHours'),
-                      DefEndHours:  AsyncStorage.getItem('DefEndHours'),
-                      DefStartHours: AsyncStorage.getItem('DefSBHours'),
-                      DefEndHours: AsyncStorage.getItem('DefEBHours'),
-                      });
+              })
         }
     
     /*Setta un Param nel navigator per far funzionare onClear*/
@@ -87,6 +84,7 @@ export default class Add extends Component {
     
     /*Salva la Data del Picker*/
     onSaveData(newDate){
+        console.log(this.state);
         this.setState({
                       chosenDate:newDate,
                       },
@@ -192,13 +190,8 @@ export default class Add extends Component {
                        <DateTimePicker
                            mode='time'
                            label='Insert Start Hour'
-               {this.state.DefStartHours!== null?
-                            placeHolder={this.state.DefStartHours}
-               :
-               placeHolder='Insert Hour'
-               
-               }
-                           value={this.state.StartHours}
+                           placeHolder='Insert Hour'
+                        value={(this.state.StartHours===null) ? this.state.DefStartHours : this.state.StartHours}
                            save={(newDate)=>{this.onSaveStartHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
