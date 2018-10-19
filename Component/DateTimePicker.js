@@ -39,6 +39,7 @@ class DateTimePicker extends Component {
     /*Apre il Modal*/
     setModalVisible() {
         this.setState({
+                      chosenDate:new Date,
                       modalVisible:true,
                       });
     }

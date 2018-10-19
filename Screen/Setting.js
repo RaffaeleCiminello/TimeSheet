@@ -48,6 +48,19 @@ export default class Setting extends Component {
                                         onSave: this.onSave
                                         });
     }
+       /*Prende orari di default in memoria*/
+    componentDidMount= async () => {
+        const MemDefStartHours= await AsyncStorage.getItem('MemDefStartHours');
+        const MemDefEndHours= await AsyncStorage.getItem('MemDefEndHours');
+        const MemDefSBHours= await AsyncStorage.getItem('MemDefSBHours');
+        const MemDefEBHours= await AsyncStorage.getItem('MemDefEBHours');
+              this.setState({
+                            MemDefStartHours: MemDefStartHours,
+                            MemDefEndHours: MemDefEndHours,
+                            MemDefSBHours: MemDefSBHours,
+                            MemDefEBHours: MemDefEBHours,
+                            });
+    }
     
     /*Salva l'ora di inizio default*/
     onSaveDefStartHour(newDate){
@@ -112,17 +125,18 @@ export default class Setting extends Component {
     /*Salva i dati in memoria e nel json*/
     onSave = async () => {
         if(this.state.DefStartHours!==null){
-            await AsyncStorage.setItem('DefStartHours', this.state.DefStartHours);
+            await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
         }
         if(this.state.DefEndHours!==null){
-            await AsyncStorage.setItem('DefEndHours', this.state.DefEndHours);
+            await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
         }
         if(this.state.DefSBHours!==null){
-            await AsyncStorage.setItem('DefSBHours', this.state.DefSBHours);
+            await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
         }
         if(this.state.DefEBHours!==null){
-            await AsyncStorage.setItem('DefEBHours', this.state.DefEBHours);
+            await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
         }
+        console.log(this.state);
     }
     
     render(){
@@ -141,25 +155,25 @@ export default class Setting extends Component {
                            mode='time'
                            label='Insert Default Start Hour'
                            placeHolder='Insert Hour'
-                           value={this.state.DefStartHours}
+                           value={(this.state.DefStartHours===null) ? this.state.MemDefStartHours : this.state.DefStartHours}
                            save={(newDate)=>{this.onSaveDefStartHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
                            label='Insert Default End Hour'
                            placeHolder='Insert Hour'
-                           value={this.state.DefEndHours}
+                           value={(this.state.DefEndHours===null) ? this.state.MemDefEndHours : this.state.DefEndHours}
                            save={(newDate)=>{this.onSaveDefEndHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
                            label='Insert Start Break Default Hour'
                            placeHolder='Insert Hour'
-                           value={this.state.DefSBHours}
+                           value={(this.state.DefSBHours===null) ? this.state.MemDefSBHours : this.state.DefSBHours}
                            save={(newDate)=>{this.onSaveDefSBHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
                            label='Insert End Breack Default Hour'
                            placeHolder='Insert Hour'
-                           value={this.state.DefEBHours}
+                           value={(this.state.DefEBHours===null) ? this.state.MemDefEBHours : this.state.DefEBHours}
                            save={(newDate)=>{this.onSaveDefEBHour(newDate)}}/>
                    </View>
                    <Foter navigation={this.state.navigation}/>

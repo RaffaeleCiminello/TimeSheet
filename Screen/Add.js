@@ -20,10 +20,6 @@ export default class Add extends Component {
             SBHours:null,
             EBHours:null,
             comment:null,
-            DefStartHours: AsyncStorage.getItem('DefStartHours'),
-            DefEndHours:  AsyncStorage.getItem('DefEndHours'),
-            DefStartHours: AsyncStorage.getItem('DefSBHours'),
-            DefEndHours: AsyncStorage.getItem('DefEBHours'),
             }
         this.onSaveData = this.onSaveData.bind(this);
         this.onSaveStartHour = this.onSaveStartHour.bind(this);
@@ -49,12 +45,20 @@ export default class Add extends Component {
     }
     
     /*Chiamata al Json*/
-    componentDidMount() {
+    componentDidMount= async () => {
+        const DefStartHours= await AsyncStorage.getItem('MemDefStartHours');
+        const DefEndHours= await AsyncStorage.getItem('MemDefEndHours');
+        const DefSBHours= await AsyncStorage.getItem('MemDefSBHours');
+        const DefEBHours= await AsyncStorage.getItem('MemDefEBHours');
         return fetch('https://mysterious-forest-84539.herokuapp.com/dati.json')
         .then((response) => response.json())
         .then((responseJson)=>{
               this.setState({
                             dataSource: responseJson.dati,
+                            DefStartHours: DefStartHours,
+                            DefEndHours: DefEndHours,
+                            DefSBHours: DefSBHours,
+                            DefEBHours: DefEBHours
                             });
               })
         }
@@ -191,25 +195,25 @@ export default class Add extends Component {
                            mode='time'
                            label='Insert Start Hour'
                            placeHolder='Insert Hour'
-                        value={(this.state.StartHours===null) ? this.state.DefStartHours : this.state.StartHours}
+                           value={(this.state.StartHours===null) ? this.state.DefStartHours : this.state.StartHours}
                            save={(newDate)=>{this.onSaveStartHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
                            label='Insert End Hour'
                            placeHolder='Insert Hour'
-                           value={this.state.EndHours}
+                           value={(this.state.EndHours===null) ? this.state.DefEndHours : this.state.EndHours}
                            save={(newDate)=>{this.onSaveEndHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
                            label='Insert Start Break Hour'
                            placeHolder='Insert Hour'
-                           value={this.state.SBHours}
+                           value={(this.state.SBHours===null) ? this.state.DefSBHours : this.state.SBHours}
                            save={(newDate)=>{this.onSaveSBHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
                            label='Insert End Break Hour'
                            placeHolder='Insert Hour'
-                           value={this.state.EBHours}
+                           value={(this.state.EBHours===null) ? this.state.DefEBHours : this.state.EBHours}
                            save={(newDate)=>{this.onSaveEBHour(newDate)}}/>
                        <Item>
                             <Input
