@@ -30,14 +30,22 @@ export default class Setting extends Component {
         headerTitle:'Setting',
         headerRight:
             navigation.getParam('correct')===false ?
-            null
+                null
             :
-            (
-            <TouchableOpacity style={styles.buttonHeader} onPress={navigation.getParam('onSave')}>
-                <Text style={styles.txt}>Save</Text>
-            </TouchableOpacity>
-             ),
-        headerLeft: null,
+                (
+                <TouchableOpacity style={styles.buttonHeader} onPress={navigation.getParam('onSave')}>
+                    <Text style={styles.txt}>Save</Text>
+                </TouchableOpacity>
+                 ),
+        headerLeft:
+            navigation.getParam('allocate')===false ?
+                null
+            :
+                (
+                 <TouchableOpacity style={styles.buttonHeader} onPress={navigation.getParam('onReset')}>
+                    <Text style={styles.txt}>Reset</Text>
+                 </TouchableOpacity>
+                 ),
         }
     }
     
@@ -45,10 +53,13 @@ export default class Setting extends Component {
     componentWillMount() {
         this.props.navigation.setParams({
                                         correct:false,
-                                        onSave: this.onSave
+                                        onSave: this.onSave,
+                                        allocate:false,
+                                        onReset: this.onReset,
                                         });
     }
-       /*Prende orari di default in memoria*/
+    
+    /*Prende orari di default in memoria*/
     componentDidMount= async () => {
         const MemDefStartHours= await AsyncStorage.getItem('MemDefStartHours');
         const MemDefEndHours= await AsyncStorage.getItem('MemDefEndHours');
@@ -60,6 +71,11 @@ export default class Setting extends Component {
                             MemDefSBHours: MemDefSBHours,
                             MemDefEBHours: MemDefEBHours,
                             });
+        if(MemDefStartHours!==null || MemDefEndHours!==null || MemDefSBHours!==null || MemDefEBHours!==null) {
+            this.props.navigation.setParams({
+                                            allocate:true,
+                                            });
+        }
     }
     
     /*Salva l'ora di inizio default*/
@@ -136,7 +152,39 @@ export default class Setting extends Component {
         if(this.state.DefEBHours!==null){
             await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
         }
-        console.log(this.state);
+        this.props.navigation.setParams({
+                                        correct:false,
+                                        allocate:true,
+                                        });
+    }
+    
+    /*Cancella orari di default in memoria*/
+    onReset = async() => {
+        if(this.state.DefStartHours!==null){
+            await AsyncStorage.removeItem('MemDefStartHours');
+        }
+        if(this.state.DefEndHours!==null){
+            await AsyncStorage.removeItem('MemDefEndHours');
+        }
+        if(this.state.DefSBHours!==null){
+            await AsyncStorage.removeItem('MemDefSBHours');
+        }
+        if(this.state.DefEBHours!==null){
+            await AsyncStorage.removeItem('MemDefEBHours');
+        }
+        this.setState({
+                      MemDefStartHours: null,
+                      MemDefEndHours: null,
+                      MemDefSBHours: null,
+                      MemDefEBHours: null,
+                      DefStartHours:null,
+                      DefEndHours:null,
+                      DefSBHours:null,
+                      DefEBHours:null,
+                      });
+        this.props.navigation.setParams({
+                                        allocate:false,
+                                        });
     }
     
     render(){
