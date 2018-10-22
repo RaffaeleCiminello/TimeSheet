@@ -51,7 +51,7 @@ export default class Appointment extends Component {
                             keyExtractor={(item, index)=> item.id}/>
                         </View>
                     </ScrollView>
-                    <Foter navigation={this.state.navigation}/>
+                    <Foter navigation={this.state.navigation} page='Appointment'/>
                 </View>
                 )
     }

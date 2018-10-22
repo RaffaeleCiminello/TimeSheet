@@ -250,7 +250,7 @@ export default class Setting extends Component {
                            value={(this.state.DefEBHours===null) ? this.state.MemDefEBHours : this.state.DefEBHours}
                            save={(newDate)=>{this.onSaveDefEBHour(newDate)}}/>
                    </View>
-                   <Foter navigation={this.state.navigation}/>
+                   <Foter navigation={this.state.navigation} page='Setting'/>
                </View>
         );
     }

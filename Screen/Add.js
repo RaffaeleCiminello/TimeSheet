@@ -72,7 +72,7 @@ export default class Add extends Component {
                             DefEBHours: DefEBHours
                             });
               })
-        if(DefStartHours!==null || DefEndHours!==null || DefSBHours!==null || DefEBHours!==null) {
+        if(this.state.DefStartHours!==null || this.state.DefEndHours!==null || this.state.DefSBHours!==null || this.state.DefEBHours!==null) {
             this.props.navigation.setParams({
                                             clear:true,
                                             });
@@ -292,7 +292,7 @@ export default class Add extends Component {
                                value={this.state.comment}/>
                        </Item>
                     </View>
-                    <Foter navigation={this.state.navigation}/>
+                    <Foter navigation={this.state.navigation} page='Add'/>
                </View>
                )
     }
