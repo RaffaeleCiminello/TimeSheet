@@ -269,12 +269,6 @@ export default class Add extends Component {
                            save={(newDate)=>{this.onSaveStartHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
-                           label='Insert End Hour'
-                           placeHolder='Insert Hour'
-                           value={(this.state.EndHours===null) ? this.state.DefEndHours : this.state.EndHours}
-                           save={(newDate)=>{this.onSaveEndHour(newDate)}}/>
-                       <DateTimePicker
-                           mode='time'
                            label='Insert Start Break Hour'
                            placeHolder='Insert Hour'
                            value={(this.state.SBHours===null) ? this.state.DefSBHours : this.state.SBHours}
@@ -285,6 +279,12 @@ export default class Add extends Component {
                            placeHolder='Insert Hour'
                            value={(this.state.EBHours===null) ? this.state.DefEBHours : this.state.EBHours}
                            save={(newDate)=>{this.onSaveEBHour(newDate)}}/>
+                       <DateTimePicker
+                           mode='time'
+                           label='Insert End Hour'
+                           placeHolder='Insert Hour'
+                           value={(this.state.EndHours===null) ? this.state.DefEndHours : this.state.EndHours}
+                           save={(newDate)=>{this.onSaveEndHour(newDate)}}/>
                        <Item>
                             <Input
                                placeholder='Insert Comment'

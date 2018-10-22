@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, Dimensions, TouchableOpacity, AsyncStorage,} from 'react-native';
+import {View, StyleSheet, Text, Dimensions, TouchableOpacity, AsyncStorage, Alert} from 'react-native';
 import Foter from '../Component/Footer.js';
 import DateTimePicker from '../Component/DateTimePicker.js';
 var moment = require('moment');
@@ -11,7 +11,6 @@ export default class Setting extends Component {
         super(props);
         this.state={
             navigation:props.navigation,
-            modalVisible:false,
             DefStartHours:null,
             DefEndHours:null,
             DefSBHours:null,
@@ -233,12 +232,6 @@ export default class Setting extends Component {
                            save={(newDate)=>{this.onSaveDefStartHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
-                           label='Insert Default End Hour'
-                           placeHolder='Insert Hour'
-                           value={(this.state.DefEndHours===null) ? this.state.MemDefEndHours : this.state.DefEndHours}
-                           save={(newDate)=>{this.onSaveDefEndHour(newDate)}}/>
-                       <DateTimePicker
-                           mode='time'
                            label='Insert Start Break Default Hour'
                            placeHolder='Insert Hour'
                            value={(this.state.DefSBHours===null) ? this.state.MemDefSBHours : this.state.DefSBHours}
@@ -249,6 +242,12 @@ export default class Setting extends Component {
                            placeHolder='Insert Hour'
                            value={(this.state.DefEBHours===null) ? this.state.MemDefEBHours : this.state.DefEBHours}
                            save={(newDate)=>{this.onSaveDefEBHour(newDate)}}/>
+                       <DateTimePicker
+                           mode='time'
+                           label='Insert Default End Hour'
+                           placeHolder='Insert Hour'
+                           value={(this.state.DefEndHours===null) ? this.state.MemDefEndHours : this.state.DefEndHours}
+                           save={(newDate)=>{this.onSaveDefEndHour(newDate)}}/>
                    </View>
                    <Foter navigation={this.state.navigation} page='Setting'/>
                </View>

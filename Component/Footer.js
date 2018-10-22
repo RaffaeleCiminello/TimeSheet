@@ -21,7 +21,7 @@ class Foter extends Component {
                             <Text style={{color:'blue'}}>Appointment</Text>
                         </Button>
                     :
-                        <Button>
+                        <Button onPress={()=>this.props.navigation.navigate('Appointment')}>
                             <Icon name="bookmarks" />
                             <Text>Appointment</Text>
                         </Button>
