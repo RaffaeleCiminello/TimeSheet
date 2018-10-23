@@ -62,16 +62,16 @@ export default class Setting extends Component {
                                         onReset: this.onReset,
                                         });
         const MemDefStartHours= await AsyncStorage.getItem('MemDefStartHours');
-        const MemDefEndHours= await AsyncStorage.getItem('MemDefEndHours');
         const MemDefSBHours= await AsyncStorage.getItem('MemDefSBHours');
         const MemDefEBHours= await AsyncStorage.getItem('MemDefEBHours');
+        const MemDefEndHours= await AsyncStorage.getItem('MemDefEndHours');
               this.setState({
                             MemDefStartHours: MemDefStartHours,
-                            MemDefEndHours: MemDefEndHours,
                             MemDefSBHours: MemDefSBHours,
                             MemDefEBHours: MemDefEBHours,
+                            MemDefEndHours: MemDefEndHours,
                             });
-        if(MemDefStartHours!==null || MemDefEndHours!==null || MemDefSBHours!==null || MemDefEBHours!==null) {
+        if(MemDefStartHours!==null || MemDefSBHours!==null || MemDefEBHours!==null || MemDefEndHours!==null ) {
             this.props.navigation.setParams({
                                             reset:true,
                                             });
@@ -80,16 +80,16 @@ export default class Setting extends Component {
     
     /*svuota la pagina all'uscita*/
     componentWillUnmount(){
-        if(MemDefStartHours===null || MemDefEndHours===null || MemDefSBHours===null || MemDefEBHours===null){
+        if(MemDefStartHours===null || MemDefSBHours===null || MemDefEBHours===null || MemDefEndHours!==null){
         this.setState({
                       DefStartHours: null,
-                      DefEndHours: null,
                       DefSBHours: null,
                       DefEBHours: null,
+                      DefEndHours: null,
                       MemDefStartHours: null,
-                      MemDefEndHours: null,
                       MemDefSBHours: null,
                       MemDefEBHours: null,
+                      MemDefEndHours: null,
                       });
         }
         this.props.navigation.setParams({
@@ -106,26 +106,11 @@ export default class Setting extends Component {
                                         });
         this.setState({
                       chosenDate:newDate,
+                      intS:newDate,
                       },
                       ()=>{
                       this.setState({
                                     DefStartHours:moment(this.state.chosenDate).format('LT')
-                                    });
-                      });
-    }
-    
-    /*Salva l'ora di fine default*/
-    onSaveDefEndHour(newDate){
-        this.props.navigation.setParams({
-                                       reset:true,
-                                       save:true,
-                                       });
-        this.setState({
-                      chosenDate:newDate,
-                      },
-                      ()=>{
-                      this.setState({
-                                    DefEndHours:moment(this.state.chosenDate).format('LT')
                                     });
                       });
     }
@@ -138,6 +123,7 @@ export default class Setting extends Component {
                                         });
         this.setState({
                       chosenDate:newDate,
+                      intSB:newDate,
                       },
                       ()=>{
                       this.setState({
@@ -154,6 +140,7 @@ export default class Setting extends Component {
                                         });
         this.setState({
                       chosenDate:newDate,
+                      intEB:newDate,
                       },
                       ()=>{
                       this.setState({
@@ -162,19 +149,426 @@ export default class Setting extends Component {
                       });
     }
     
+    /*Salva l'ora di fine default*/
+    onSaveDefEndHour(newDate){
+        this.props.navigation.setParams({
+                                        reset:true,
+                                        save:true,
+                                        });
+        this.setState({
+                      chosenDate:newDate,
+                      intE:newDate,
+                      },
+                      ()=>{
+                      this.setState({
+                                    DefEndHours:moment(this.state.chosenDate).format('LT')
+                                    });
+                      });
+    }
+    
     /*Salva i dati in memoria e nel json*/
     onSave = async () => {
-        if(this.state.DefStartHours!==null){
-            await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+        if(this.state.DefStartHours!==null)
+        {
+            if(this.state.DefSBHours!==null && this.state.DefEBHours!==null && this.state.DefEndHours!==null)
+            {
+                if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intS))>0)
+                {
+                    await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                }
+                else
+                {
+                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                }
+            }
+            else
+            {
+                if(this.state.DefSBHours!==null && this.state.DefEBHours!==null)
+                {
+                    if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intS))>0)
+                    {
+                        await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                    }
+                    else
+                    {
+                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                    }
+                }
+                else
+                {
+                    if(this.state.DefEBHours!==null && this.state.DefEndHours!==null)
+                    {
+                        if(moment(this.state.intEB).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intS))>0)
+                        {
+                            await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                        }
+                        else{
+                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                        }
+                    }
+                    else
+                    {
+                        if(this.state.DefSBHours!==null && this.state.DefEndHours!==null)
+                        {
+                            if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intS))>0)
+                            {
+                                await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                            }
+                            else
+                            {
+                                Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                            }
+                        }
+                        else
+                        {
+                            if(this.state.DefSBHours!==null)
+                            {
+                                if(moment(this.state.intSB).diff(moment(this.state.intS))>0)
+                                {
+                                    await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                                }
+                                else
+                                {
+                                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                }
+                            }
+                            else
+                            {
+                                if(this.state.DefEBHours!==null)
+                                {
+                                    if(moment(this.state.intEB).diff(moment(this.state.intS))>0)
+                                    {
+                                        await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                                    }
+                                    else
+                                    {
+                                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                    }
+                                }
+                                else
+                                {
+                                    if(this.state.DefEndHours!==null)
+                                    {
+                                        if(moment(this.state.intE).diff(moment(this.state.intS))>0)
+                                        {
+                                            await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                                        }
+                                        else
+                                        {
+                                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                        }
+                                    }
+                                    else
+                                    {
+                                         await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        if(this.state.DefEndHours!==null){
-            await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
-        }
+        
         if(this.state.DefSBHours!==null){
-            await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+            if(this.state.DefSHours!==null && this.state.DefEBHours!==null && this.state.DefEndHours!==null)
+            {
+                if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intSB))>0)
+                {
+                    await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                }
+                else
+                {
+                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                }
+            }
+            else
+            {
+                if(this.state.DefStartHours!==null && this.state.DefEBHours!==null)
+                {
+                    if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intSB))>0)
+                    {
+                        await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                    }
+                    else
+                    {
+                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                    }
+                }
+                else
+                {
+                    if(this.state.DefEBHours!==null && this.state.DefEndHours!==null)
+                    {
+                        if(moment(this.state.intEB).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intSB))>0)
+                        {
+                             await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                        }
+                        else{
+                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                        }
+                    }
+                    else
+                    {
+                        if(this.state.DefStartHours!==null && this.state.DefEndHours!==null)
+                        {
+                            if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intSB))>0)
+                            {
+                                await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                            }
+                            else
+                            {
+                                Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                            }
+                        }
+                        else
+                        {
+                            if(this.state.DefStartHours!==null)
+                            {
+                                if(moment(this.state.intSB).diff(moment(this.state.intS))>0)
+                                {
+                                    await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                                }
+                                else
+                                {
+                                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                }
+                            }
+                            else
+                            {
+                                if(this.state.DefEBHours!==null)
+                                {
+                                    if(moment(this.state.intEB).diff(moment(this.state.intS))>0)
+                                    {
+                                        await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                                    }
+                                    else
+                                    {
+                                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                    }
+                                }
+                                else
+                                {
+                                    if(this.state.DefEndHours!==null)
+                                    {
+                                        if(moment(this.state.intE).diff(moment(this.state.intS))>0)
+                                        {
+                                            await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                                        }
+                                        else
+                                        {
+                                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                        }
+                                    }
+                                    else
+                                    {
+                                        await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         if(this.state.DefEBHours!==null){
-            await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+            if(this.state.DefSHours!==null && this.state.DefSBHours!==null && this.state.DefEBHours!==null)
+            {
+                if(moment(this.state.intEB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
+                {
+                    await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                }
+                else
+                {
+                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                }
+            }
+            else
+            {
+                if(this.state.DefStartHours!==null && this.state.DefSBHours!==null)
+                {
+                    if(moment(this.state.intEB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intSB))>0)
+                    {
+                        await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                    }
+                    else
+                    {
+                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                    }
+                }
+                else
+                {
+                    if(this.state.DefSBHours!==null && this.state.DefEndHours!==null)
+                    {
+                        if(moment(this.state.intEB).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
+                        {
+                            await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                        }
+                        else{
+                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                        }
+                    }
+                    else
+                    {
+                        if(this.state.DefStartHours!==null && this.state.DefEndHours!==null)
+                        {
+                            if(moment(this.state.intEB).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
+                            {
+                                await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                            }
+                            else
+                            {
+                                Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                            }
+                        }
+                        else
+                        {
+                            if(this.state.DefStartHours!==null)
+                            {
+                                if(moment(this.state.intEB).diff(moment(this.state.intS))>0)
+                                {
+                                    await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                                }
+                                else
+                                {
+                                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                }
+                            }
+                            else
+                            {
+                                if(this.state.DefSBHours!==null)
+                                {
+                                    if(moment(this.state.intEB).diff(moment(this.state.intSB))>0)
+                                    {
+                                        await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                                    }
+                                    else
+                                    {
+                                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                    }
+                                }
+                                else
+                                {
+                                    if(this.state.DefEndHours!==null)
+                                    {
+                                        if(moment(this.state.intE).diff(moment(this.state.intEB))>0)
+                                        {
+                                            await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                                        }
+                                        else
+                                        {
+                                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                        }
+                                    }
+                                    else
+                                    {
+                                        await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(this.state.DefEndHours!==null){
+            if(this.state.DefSHours!==null && this.state.DefEBHours!==null && this.state.DefEndHours!==null)
+            {
+                if(moment(this.state.intE).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
+                {
+                    await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                }
+                else
+                {
+                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                }
+            }
+            else
+            {
+                if(this.state.DefStartHours!==null && this.state.DefSBHours!==null)
+                {
+                    if(moment(this.state.intE).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intSB))>0)
+                    {
+                        await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                    }
+                    else
+                    {
+                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                    }
+                }
+                else
+                {
+                    if(this.state.DefSBHours!==null && this.state.DefEBHours!==null)
+                    {
+                        if(moment(this.state.intE).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
+                        {
+                            await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                        }
+                        else{
+                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                        }
+                    }
+                    else
+                    {
+                        if(this.state.DefStartHours!==null && this.state.DefEBHours!==null)
+                        {
+                            if(moment(this.state.intE).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
+                            {
+                                await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                            }
+                            else
+                            {
+                                Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                            }
+                        }
+                        else
+                        {
+                            if(this.state.DefStartHours!==null)
+                            {
+                                if(moment(this.state.intE).diff(moment(this.state.intS))>0)
+                                {
+                                    await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                                }
+                                else
+                                {
+                                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                }
+                            }
+                            else
+                            {
+                                if(this.state.DefSBHours!==null)
+                                {
+                                    if(moment(this.state.intE).diff(moment(this.state.intSB))>0)
+                                    {
+                                        await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                                    }
+                                    else
+                                    {
+                                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                    }
+                                }
+                                else
+                                {
+                                    if(this.state.DefEBHours!==null)
+                                    {
+                                        if(moment(this.state.intE).diff(moment(this.state.intEB))>0)
+                                        {
+                                            await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                                        }
+                                        else
+                                        {
+                                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                        }
+                                    }
+                                    else
+                                    {
+                                        await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         this.props.navigation.setParams({
                                         save:false,
@@ -184,18 +578,10 @@ export default class Setting extends Component {
     
     /*Cancella orari di default in memoria*/
     onReset = async() => {
-        if(this.state.DefStartHours!==null){
             await AsyncStorage.removeItem('MemDefStartHours');
-        }
-        if(this.state.DefEndHours!==null){
             await AsyncStorage.removeItem('MemDefEndHours');
-        }
-        if(this.state.DefSBHours!==null){
-            await AsyncStorage.removeItem('MemDefSBHours');
-        }
-        if(this.state.DefEBHours!==null){
+        await AsyncStorage.removeItem('MemDefSBHours');
             await AsyncStorage.removeItem('MemDefEBHours');
-        }
         this.setState({
                       MemDefStartHours: null,
                       MemDefEndHours: null,
