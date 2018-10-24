@@ -20,6 +20,7 @@ export default class Setting extends Component {
             MemDefEndHours: null,
             MemDefSBHours: null,
             MemDefEBHours: null,
+            valid:null,
             }
         this.onSaveDefStartHour = this.onSaveDefStartHour.bind(this);
         this.onSaveDefEndHour = this.onSaveDefEndHour.bind(this);
@@ -175,10 +176,15 @@ export default class Setting extends Component {
                 if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intS))>0)
                 {
                     await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                    this.setState({
+                                  valid:true,
+                    })
                 }
                 else
                 {
-                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                    this.setState({
+                                  valid:false,
+                                  })
                 }
             }
             else
@@ -188,10 +194,15 @@ export default class Setting extends Component {
                     if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intS))>0)
                     {
                         await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                        this.setState({
+                                      valid:true,
+                                      })
                     }
                     else
                     {
-                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                        this.setState({
+                                      valid:false,
+                                      })
                     }
                 }
                 else
@@ -201,9 +212,14 @@ export default class Setting extends Component {
                         if(moment(this.state.intEB).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intS))>0)
                         {
                             await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                            this.setState({
+                                          valid:true,
+                                          })
                         }
                         else{
-                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                            this.setState({
+                                          valid:false,
+                                          })
                         }
                     }
                     else
@@ -213,10 +229,15 @@ export default class Setting extends Component {
                             if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intS))>0)
                             {
                                 await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                                this.setState({
+                                              valid:true,
+                                              })
                             }
                             else
                             {
-                                Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                this.setState({
+                                              valid:false,
+                                              })
                             }
                         }
                         else
@@ -226,10 +247,15 @@ export default class Setting extends Component {
                                 if(moment(this.state.intSB).diff(moment(this.state.intS))>0)
                                 {
                                     await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                                    this.setState({
+                                                  valid:true,
+                                                  })
                                 }
                                 else
                                 {
-                                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                    this.setState({
+                                                  valid:false,
+                                                  })
                                 }
                             }
                             else
@@ -239,10 +265,15 @@ export default class Setting extends Component {
                                     if(moment(this.state.intEB).diff(moment(this.state.intS))>0)
                                     {
                                         await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                                        this.setState({
+                                                      valid:true,
+                                                      })
                                     }
                                     else
                                     {
-                                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                        this.setState({
+                                                      valid:false,
+                                                      })
                                     }
                                 }
                                 else
@@ -252,15 +283,23 @@ export default class Setting extends Component {
                                         if(moment(this.state.intE).diff(moment(this.state.intS))>0)
                                         {
                                             await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                                            this.setState({
+                                                          valid:true,
+                                                          })
                                         }
                                         else
                                         {
-                                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                            this.setState({
+                                                          valid:false,
+                                                          })
                                         }
                                     }
                                     else
                                     {
                                          await AsyncStorage.setItem('MemDefStartHours', this.state.DefStartHours);
+                                        this.setState({
+                                                      valid:true,
+                                                      })
                                     }
                                 }
                             }
@@ -271,15 +310,20 @@ export default class Setting extends Component {
         }
         
         if(this.state.DefSBHours!==null){
-            if(this.state.DefSHours!==null && this.state.DefEBHours!==null && this.state.DefEndHours!==null)
+            if(this.state.DefStartHours!==null && this.state.DefEBHours!==null && this.state.DefEndHours!==null)
             {
                 if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intSB))>0)
                 {
                     await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                    this.setState({
+                                  valid:true,
+                                  })
                 }
                 else
                 {
-                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                    this.setState({
+                                  valid:false,
+                                  })
                 }
             }
             else
@@ -289,10 +333,15 @@ export default class Setting extends Component {
                     if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intSB))>0)
                     {
                         await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                        this.setState({
+                                      valid:true,
+                                      })
                     }
                     else
                     {
-                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                        this.setState({
+                                      valid:false,
+                                      })
                     }
                 }
                 else
@@ -302,9 +351,14 @@ export default class Setting extends Component {
                         if(moment(this.state.intEB).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intSB))>0)
                         {
                              await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                            this.setState({
+                                          valid:true,
+                                          })
                         }
                         else{
-                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                            this.setState({
+                                          valid:false,
+                                          })
                         }
                     }
                     else
@@ -314,10 +368,15 @@ export default class Setting extends Component {
                             if(moment(this.state.intSB).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intSB))>0)
                             {
                                 await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                                this.setState({
+                                              valid:true,
+                                              })
                             }
                             else
                             {
-                                Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                this.setState({
+                                              valid:false,
+                                              })
                             }
                         }
                         else
@@ -327,10 +386,15 @@ export default class Setting extends Component {
                                 if(moment(this.state.intSB).diff(moment(this.state.intS))>0)
                                 {
                                     await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                                    this.setState({
+                                                  valid:true,
+                                                  })
                                 }
                                 else
                                 {
-                                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                    this.setState({
+                                                  valid:false,
+                                                  })
                                 }
                             }
                             else
@@ -340,10 +404,15 @@ export default class Setting extends Component {
                                     if(moment(this.state.intEB).diff(moment(this.state.intS))>0)
                                     {
                                         await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                                        this.setState({
+                                                      valid:true,
+                                                      })
                                     }
                                     else
                                     {
-                                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                        this.setState({
+                                                      valid:false,
+                                                      })
                                     }
                                 }
                                 else
@@ -353,15 +422,23 @@ export default class Setting extends Component {
                                         if(moment(this.state.intE).diff(moment(this.state.intS))>0)
                                         {
                                             await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                                            this.setState({
+                                                          valid:true,
+                                                          })
                                         }
                                         else
                                         {
-                                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                            this.setState({
+                                                          valid:false,
+                                                          })
                                         }
                                     }
                                     else
                                     {
                                         await AsyncStorage.setItem('MemDefSBHours', this.state.DefSBHours);
+                                        this.setState({
+                                                      valid:true,
+                                                      })
                                     }
                                 }
                             }
@@ -371,15 +448,20 @@ export default class Setting extends Component {
             }
         }
         if(this.state.DefEBHours!==null){
-            if(this.state.DefSHours!==null && this.state.DefSBHours!==null && this.state.DefEBHours!==null)
+            if(this.state.DefStartHours!==null && this.state.DefSBHours!==null && this.state.DefEBHours!==null)
             {
                 if(moment(this.state.intEB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
                 {
                     await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                    this.setState({
+                                  valid:true,
+                                  })
                 }
                 else
                 {
-                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                    this.setState({
+                                  valid:false,
+                                  })
                 }
             }
             else
@@ -389,10 +471,15 @@ export default class Setting extends Component {
                     if(moment(this.state.intEB).diff(moment(this.state.intS))>0 && moment(this.state.intEB).diff(moment(this.state.intSB))>0)
                     {
                         await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                        this.setState({
+                                      valid:true,
+                                      })
                     }
                     else
                     {
-                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                        this.setState({
+                                      valid:false,
+                                      })
                     }
                 }
                 else
@@ -402,9 +489,15 @@ export default class Setting extends Component {
                         if(moment(this.state.intEB).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
                         {
                             await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                            this.setState({
+                                          valid:true,
+                                          })
                         }
-                        else{
-                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                        else
+                        {
+                            this.setState({
+                                          valid:false,
+                                          })
                         }
                     }
                     else
@@ -414,10 +507,15 @@ export default class Setting extends Component {
                             if(moment(this.state.intEB).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
                             {
                                 await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                                this.setState({
+                                              valid:true,
+                                              })
                             }
                             else
                             {
-                                Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                this.setState({
+                                              valid:false,
+                                              })
                             }
                         }
                         else
@@ -427,10 +525,15 @@ export default class Setting extends Component {
                                 if(moment(this.state.intEB).diff(moment(this.state.intS))>0)
                                 {
                                     await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                                    this.setState({
+                                                  valid:true,
+                                                  })
                                 }
                                 else
                                 {
-                                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                    this.setState({
+                                                  valid:false,
+                                                  })
                                 }
                             }
                             else
@@ -440,10 +543,15 @@ export default class Setting extends Component {
                                     if(moment(this.state.intEB).diff(moment(this.state.intSB))>0)
                                     {
                                         await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                                        this.setState({
+                                                      valid:true,
+                                                      })
                                     }
                                     else
                                     {
-                                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                        this.setState({
+                                                      valid:false,
+                                                      })
                                     }
                                 }
                                 else
@@ -453,15 +561,23 @@ export default class Setting extends Component {
                                         if(moment(this.state.intE).diff(moment(this.state.intEB))>0)
                                         {
                                             await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                                            this.setState({
+                                                          valid:true,
+                                                          })
                                         }
                                         else
                                         {
-                                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                            this.setState({
+                                                          valid:false,
+                                                          })
                                         }
                                     }
                                     else
                                     {
                                         await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
+                                        this.setState({
+                                                      valid:true,
+                                                      })
                                     }
                                 }
                             }
@@ -470,16 +586,22 @@ export default class Setting extends Component {
                 }
             }
         }
+        await AsyncStorage.setItem('MemDefEBHours', this.state.DefEBHours);
         if(this.state.DefEndHours!==null){
-            if(this.state.DefSHours!==null && this.state.DefEBHours!==null && this.state.DefEndHours!==null)
+            if(this.state.DefStartHours!==null && this.state.DefEBHours!==null && this.state.DefEndHours!==null)
             {
                 if(moment(this.state.intE).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
                 {
                     await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                    this.setState({
+                                  valid:true,
+                                  })
                 }
                 else
                 {
-                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                    this.setState({
+                                  valid:false,
+                                  })
                 }
             }
             else
@@ -489,10 +611,15 @@ export default class Setting extends Component {
                     if(moment(this.state.intE).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intSB))>0)
                     {
                         await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                        this.setState({
+                                      valid:true,
+                                      })
                     }
                     else
                     {
-                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                        this.setState({
+                                      valid:false,
+                                      })
                     }
                 }
                 else
@@ -502,9 +629,14 @@ export default class Setting extends Component {
                         if(moment(this.state.intE).diff(moment(this.state.intSB))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
                         {
                             await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                            this.setState({
+                                          valid:true,
+                                          })
                         }
                         else{
-                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                            this.setState({
+                                          valid:false,
+                                          })
                         }
                     }
                     else
@@ -514,10 +646,15 @@ export default class Setting extends Component {
                             if(moment(this.state.intE).diff(moment(this.state.intS))>0 && moment(this.state.intE).diff(moment(this.state.intEB))>0)
                             {
                                 await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                                this.setState({
+                                              valid:true,
+                                              })
                             }
                             else
                             {
-                                Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                this.setState({
+                                              valid:false,
+                                              })
                             }
                         }
                         else
@@ -527,10 +664,15 @@ export default class Setting extends Component {
                                 if(moment(this.state.intE).diff(moment(this.state.intS))>0)
                                 {
                                     await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                                    this.setState({
+                                                  valid:true,
+                                                  })
                                 }
                                 else
                                 {
-                                    Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                    this.setState({
+                                                  valid:false,
+                                                  })
                                 }
                             }
                             else
@@ -540,10 +682,15 @@ export default class Setting extends Component {
                                     if(moment(this.state.intE).diff(moment(this.state.intSB))>0)
                                     {
                                         await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                                        this.setState({
+                                                      valid:true,
+                                                      })
                                     }
                                     else
                                     {
-                                        Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                        this.setState({
+                                                      valid:false,
+                                                      })
                                     }
                                 }
                                 else
@@ -553,15 +700,23 @@ export default class Setting extends Component {
                                         if(moment(this.state.intE).diff(moment(this.state.intEB))>0)
                                         {
                                             await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                                            this.setState({
+                                                          valid:true,
+                                                          })
                                         }
                                         else
                                         {
-                                            Alert.alert('Impossibile Salvare', 'Inserire un Orario valido')
+                                            this.setState({
+                                                          valid:false,
+                                                          })
                                         }
                                     }
                                     else
                                     {
                                         await AsyncStorage.setItem('MemDefEndHours', this.state.DefEndHours);
+                                        this.setState({
+                                                      valid:true,
+                                                      })
                                     }
                                 }
                             }
@@ -569,6 +724,20 @@ export default class Setting extends Component {
                     }
                 }
             }
+        }
+        if(this.state.valid===true)
+        {
+            Alert.alert('Salvataggio Effettuato', 'I dati inseriti sono stati salvati con successo')
+            this.setState({
+                          valid:null,
+            })
+        }
+        else
+        {
+            Alert.alert('Salvataggio Fallito', 'I dati inseriti non sono validi')
+            this.setState({
+                          valid:null,
+                          })
         }
         this.props.navigation.setParams({
                                         save:false,
@@ -580,7 +749,7 @@ export default class Setting extends Component {
     onReset = async() => {
             await AsyncStorage.removeItem('MemDefStartHours');
             await AsyncStorage.removeItem('MemDefEndHours');
-        await AsyncStorage.removeItem('MemDefSBHours');
+            await AsyncStorage.removeItem('MemDefSBHours');
             await AsyncStorage.removeItem('MemDefEBHours');
         this.setState({
                       MemDefStartHours: null,
@@ -591,11 +760,13 @@ export default class Setting extends Component {
                       DefEndHours:null,
                       DefSBHours:null,
                       DefEBHours:null,
+                      valid:null,
                       });
         this.props.navigation.setParams({
                                         reset:false,
                                         save:false,
                                         });
+        Alert.alert('Dati Rimossi', 'I dati sono stati rimossi con successo')
     }
     
     render(){
@@ -624,7 +795,7 @@ export default class Setting extends Component {
                            save={(newDate)=>{this.onSaveDefSBHour(newDate)}}/>
                        <DateTimePicker
                            mode='time'
-                           label='Insert End Breack Default Hour'
+                           label='Insert End Break Default Hour'
                            placeHolder='Insert Hour'
                            value={(this.state.DefEBHours===null) ? this.state.MemDefEBHours : this.state.DefEBHours}
                            save={(newDate)=>{this.onSaveDefEBHour(newDate)}}/>
