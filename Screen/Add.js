@@ -22,7 +22,6 @@ export default class Add extends Component {
             EndHours:null,
             comment:null,
             date:new Date(),
-            valid:false,
             }
         this.onSaveData = this.onSaveData.bind(this);
         this.onSaveStartHour = this.onSaveStartHour.bind(this);
@@ -118,7 +117,7 @@ export default class Add extends Component {
                       selected: value
                       },
                       ()=>{
-                            if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.SBHours!==null && this.state.EBHours!==null && this.state.EndHours!==null)
+                            if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.EndHours!==null)
                             {
                                 this.props.navigation.setParams({
                                                                 save:true,
@@ -150,7 +149,7 @@ export default class Add extends Component {
                                     },
                                           ()=>{
                                                 //controlla che tutti i valori nella pagina siano settati per mostrare il pulsante Save
-                                                if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.SBHours!==null && this.state.EBHours!==null && this.state.EndHours!==null)
+                                                if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.EndHours!==null)
                                                 {
                                                 this.props.navigation.setParams({
                                                                                 save:true,
@@ -175,7 +174,7 @@ export default class Add extends Component {
                                     },
                                         ()=>{
                                             //controlla che tutti i valori nella pagina siano settati per mostrare il pulsante Save
-                                            if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.SBHours!==null && this.state.EBHours!==null && this.state.EndHours!==null)
+                                            if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.EndHours!==null)
                                             {
                                                 this.props.navigation.setParams({
                                                                                 save:true,
@@ -195,20 +194,12 @@ export default class Add extends Component {
                       intSB:newDate,
                       },
                       ()=>{
-                      this.setState({
-                                    SBHours:moment(this.state.chosenDate).format('LT')
-                                    },
-                                        ()=>{
-                                            //controlla che tutti i valori nella pagina siano settati per mostrare il pulsante Save
-                                            if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.SBHours!==null && this.state.EBHours!==null && this.state.EndHours!==null)
-                                            {
-                                                this.props.navigation.setParams({
-                                                                                save:true,
-                                                                                });
-                                            }
+                          this.setState({
+                                        SBHours:moment(this.state.chosenDate).format('LT')
                                         });
                       });
         this.props.navigation.setParams({
+                                        save:false,
                                         clear:true,
                                         });
     }
@@ -220,18 +211,21 @@ export default class Add extends Component {
                       intEB:newDate,
                       },
                       ()=>{
-                      this.setState({
-                                    EBHours:moment(this.state.chosenDate).format('LT')
-                                    },
-                                        ()=>{
-                                            //controlla che tutti i valori nella pagina siano settati per mostrare il pulsante Save
-                                            if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.SBHours!==null && this.state.EBHours!==null && this.state.EndHours!==null)
-                                            {
-                                                this.props.navigation.setParams({
-                                                                                save:true,
-                                                                                });
-                                            }
-                                        });
+                      if(this.state.SBHours!==null)
+                      {
+                          this.setState({
+                                        EBHours:moment(this.state.chosenDate).format('LT')
+                                        },
+                                            ()=>{
+                                                //controlla che tutti i valori nella pagina siano settati per mostrare il pulsante Save
+                                                if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.SBHours!==null && this.state.EBHours!==null && this.state.EndHours!==null)
+                                                {
+                                                    this.props.navigation.setParams({
+                                                                                    save:true,
+                                                                                    });
+                                                }
+                                            });
+                          }
                       });
         this.props.navigation.setParams({
                                         clear:true,
@@ -250,7 +244,7 @@ export default class Add extends Component {
                                     },
                                         ()=>{
                                             //controlla che tutti i valori nella pagina siano settati per mostrare il pulsante Save
-                                           if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.SBHours!==null && this.state.EBHours!==null && this.state.EndHours!==null)
+                                           if(this.state.selected!==null && this.state.fullDate!==null && this.state.StartHours!==null && this.state.EndHours!==null)
                                             {
                                                 this.props.navigation.setParams({
                                                                                 save:true,
@@ -328,11 +322,6 @@ export default class Add extends Component {
                       EBHours:null,
                       EndHours:null,
                       comment:null,
-                      DefStartHours: null,
-                      DefEndHours: null,
-                      DefSBHours: null,
-                      DefEBHours: null,
-                      
                       });
         this.props.navigation.setParams({
                                         save:false,
