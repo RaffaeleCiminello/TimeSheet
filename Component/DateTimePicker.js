@@ -14,6 +14,7 @@ class DateTimePicker extends Component {
             placeHolder:props.placeHolder,
             save:props.save,
             value:props.value,
+            maxDate:props.maxDate,
             chosenDate: moment(),
             modalVisible:false,
         };
@@ -81,7 +82,8 @@ class DateTimePicker extends Component {
                            <DatePickerIOS
                                date={this.state.chosenDate}
                                onDateChange={this.setDate}
-                               mode={this.state.mode}/>
+                               mode={this.state.mode}
+                               maximumDate={this.state.maxDate}/>
                            <Button block light style={styles.button} onPress={this.onClose}>
                                 <Text style={styles.ButtonText}>Save</Text>
                            </Button>
