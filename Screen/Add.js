@@ -72,13 +72,17 @@ export default class Add extends Component {
                             SBHours: DefSBHours,
                             EBHours: DefEBHours,
                             EndHours: DefEndHours,
+                            },
+                            ()=>{
+                                if(this.state.StartHours!==null || this.state.EBHours!==null || this.state.SBHours!==null || this.state.EndHours!==null)
+                                {
+                                    this.props.navigation.setParams({
+                                                                    clear:true,
+                                                                    });
+                                }
+                            
                             });
               })
-        if(this.state.StartHours!==null || this.state.EBHours!==null || this.state.SBHours!==null || this.state.EndHours!==null) {
-            this.props.navigation.setParams({
-                                            clear:true,
-                                            });
-            }
         }
     
     /*Setta un Param nel navigator per far funzionare onClear e onSave*/
@@ -100,11 +104,11 @@ export default class Add extends Component {
                           EBHours: null,
                           EndHours: null,
                           });
-        }
         this.props.navigation.setParams({
                                         save:false,
                                         clear:true,
                                         });
+        }
     }
     
     /*Imposta i Valori Default al picker*/
@@ -312,8 +316,6 @@ export default class Add extends Component {
                                             save:false,
                                             });
         }
-        
-        
     }
 
     /*Resetta i valori impostati*/
